@@ -67,6 +67,12 @@ runs:
       run: |
          for var in ${{ steps.prepare-deployment.outputs.APP_FOLDER }}; do 
          cat ./.github/resources/release-template-v2.yaml | envsubst > webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}-release.yaml
-         touch webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}.txt
-         touch webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}.bin
          done 
+    - name: Commit report
+      run: |
+          git config --global user.name 'mazen423'
+          git config --global user.email 'mazen423@users.noreply.github.com'
+          git add -A
+          git commit -am "Automated report"
+          git push
+
