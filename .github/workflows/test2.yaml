@@ -23,7 +23,7 @@ on:
         required: true
         default: "test"
       branch:
-        description: 'app'
+        description: 'branch'
         required: true
         default: "test"
    

@@ -20,10 +20,12 @@ fi
 
 if [ "$BRANCH_NAME" == "master" ] && [ "$DEPLOYMENT_REGION" == "europe-west4" ]; then
   APP_FOLDER=("apps/europe-west4")
+  echo "Condition met, APP_FOLDER set to: ${APP_FOLDER[@]}"
 fi
 
 if [ "$BRANCH_NAME" == "master" ] && [ "$DEPLOYMENT_REGION" == "europe-west1" ]; then
   APP_FOLDER=("apps/europe-west1")
+  echo "Condition met, APP_FOLDER set to: ${APP_FOLDER[@]}"
 fi
 
 
