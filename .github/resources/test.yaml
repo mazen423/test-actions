@@ -1,0 +1,55 @@
+name: test-regions
+on:
+  push:
+    branches:
+      - 'test-mazen'
+jobs:
+  first:
+    runs-on: ubuntu-latest
+    outputs:
+      commit_sha: ${{ steps.find-fork-commit.outputs.commit_sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Prepare deployment config
+        id: prepare-deployment
+        run: ./.github/resources/loop.sh
+        shell: bash
+
+      - name: test output
+        run: echo ${{ steps.prepare-deployment.outputs.APP_FOLDER }}
+        shell: bash
+
+      - name: test array output per items
+        shell: bash
+        run: |
+         for var in ${{ steps.prepare-deployment.outputs.APP_FOLDER }}; do echo "$var"; done 
+
+      - name: test release creation
+        shell: bash
+        run: |
+         for var in ${{ steps.prepare-deployment.outputs.APP_FOLDER }}; do 
+         cat ./.github/resources/release-template-v2.yaml | envsubst > webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}-release.yaml
+         touch webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}.txt
+         touch webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}.bin
+         done 
+
+      #- name: multi line loop test
+      #  shell: bash
+      #  run: |
+      #   for var in ${{ steps.prepare-deployment.outputs.APP_FOLDER }}; do cat ./.github/resources/release-template-v2.yaml | envsubst > webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}-release.yaml; done 
+      
+
+      - name: Commit report
+        run: |
+          git config --global user.name 'mazen423'
+          git config --global user.email 'mazen423@users.noreply.github.com'
+          git add -A
+          git commit -am "Automated report"
+          git push
+
+
+
+

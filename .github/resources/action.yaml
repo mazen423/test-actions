@@ -1,0 +1,59 @@
+name: 'Execute gitops deployment'
+description: 'Trigger a deployment using gitops and waits until deployment on k8s cluster is finished'
+
+inputs:
+  app-name:
+    description: 'Name of the app, e.g. pwa or bos'
+    required: true
+  branch-name:
+    description: 'The branch name that will be deployed'
+    required: true
+  production-deployment:
+    description: 'Boolean to trigger a deployment on production (default for master branch: prelive)'
+    default: 'false'
+    required: false
+  deployment-timeout:
+    description: 'Timeout in seconds to wait until considering the deployment as failed'
+    default: '360'
+    required: false
+  dedicated-feature-config:
+    description: 'If set to true, the deployment will refer to a kubernetes secret that equals the name of the feature deployment'
+    default: 'false'
+    required: false
+  deployment-type:
+    description: 'This action can deploy both an app (kubernetes deployment) and cronjob'
+    default: 'app'
+    required: false
+  deployment-region:
+    description: 'This action can deploy both an region'
+    default: 'both'
+    required: false
+
+outputs:
+  namespace:
+    description: "Target namespace for the deployment"
+    value: ${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAMESPACE }}
+  name:
+    description: "Name of the deployment"
+    value: ${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}
+  gcp-project:
+    description: "GCP project which was deployed into"
+    value: ${{ steps.prepare-deployment.outputs.DEPLOYMENT_GCP_PROJECT }}
+
+runs:
+  using: "composite"
+  steps:
+
+    # Trigger deployment
+    - name: Prepare deployment config
+      id: prepare-deployment
+      run: ./.github/resources/prepare-deployment.sh
+      shell: bash
+      env:
+        BRANCH_NAME: ${{ inputs.branch-name }}
+        PRODUCTION_DEPLOYMENT: ${{ inputs.production-deployment }}
+        APP_NAME: ${{ inputs.app-name }}
+        DEDICATED_FEATURE_CONFIG: ${{ inputs.dedicated-feature-config }}
+        DEPLOYMENT_TYPE: ${{ inputs.deployment-type }}
+        RELEASE_TAG: ${{ inputs.release-tag }}
+        DEPLOYMENT_REGION: ${{ inputs.deployment-region }}

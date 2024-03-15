@@ -1,0 +1,31 @@
+name: Test preparation
+on:
+  workflow_dispatch:
+    inputs:
+      type:
+        description: 'Type for deployment (hotfix, release, rollback)- in case of issues with the rollback please refer to manual process described here: https://github.com/MediaMarktSaturn/webmobile-deployment-manifest#rollback-deployment'
+        required: true
+        type: choice
+        options:
+          - hotfix
+          - release
+          - rollback
+   
+  push:
+    branches:
+      - 'test-mazen'
+jobs:
+  production-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout deployment action
+        uses: actions/checkout@v4
+      
+      - name: Run local action
+        uses: ./.github/resources/
+        with:
+          app-name: bos
+          branch-name: master
+          production-deployment: true
+          deployment-timeout: 600
+          flux-release: v2
