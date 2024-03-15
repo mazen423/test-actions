@@ -12,7 +12,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          # This token is required to push changes back to the repository
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Prepare deployment config
         id: prepare-deployment
         run: ./.github/resources/loop.sh

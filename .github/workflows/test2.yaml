@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Checkout deployment action
         uses: actions/checkout@v4
+        with:
+          # This token is required to push changes back to the repository
+          token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Run local action
         uses: ./.github/resources/
@@ -28,3 +31,4 @@ jobs:
           branch-name: master
           production-deployment: true
           deployment-timeout: 600
+          github_token: ${{ secrets.GITHUB_TOKEN }}

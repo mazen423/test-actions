@@ -2,6 +2,9 @@ name: 'Execute gitops deployment'
 description: 'Trigger a deployment using gitops and waits until deployment on k8s cluster is finished'
 
 inputs:
+  github_token:
+    description: 'GitHub Token for authentication'
+    required: true
   app-name:
     description: 'Name of the app, e.g. pwa or bos'
     required: true
@@ -71,9 +74,14 @@ runs:
     - name: Commit report
       shell: bash
       run: |
-          git config --global user.name 'mazen423'
-          git config --global user.email 'mazen423@users.noreply.github.com'
+          echo "Configuring git with authenticated user"
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git remote set-url origin https://x-access-token:${{ inputs.github_token }}@${{ github.server_url }}/${{ github.repository }}
           git add -A
           git commit -am "Automated report"
           git push
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+      
 
