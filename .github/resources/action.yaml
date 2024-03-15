@@ -71,17 +71,14 @@ runs:
          for var in ${{ steps.prepare-deployment.outputs.APP_FOLDER }}; do 
          cat ./.github/resources/release-template-v2.yaml | envsubst > webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}-release.yaml
          done 
-    - name: Commit report
+    - name: commit
       shell: bash
       run: |
-          echo "Configuring git with authenticated user"
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-          git remote set-url origin https://github.com/mazen423/test-actions
-          git add -A
-          git commit -am "Automated report"
-          git push
-      env:
-        GITHUB_TOKEN: ${{ inputs.github_token }}
+        git config --global url."https://x-access-token:${{ inputs.github_token }}@github.com/Mazen423".insteadOf "https://github.com/Mazen423"
+        git config --global user.email "webshop-foundation@mediamarksaturn.com"
+        git config --global user.name "Webshop Deployment Github Action"
+        git add -A
+        git commit -m "report"
+        git push
       
 
