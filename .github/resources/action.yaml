@@ -74,11 +74,10 @@ runs:
     - name: commit
       shell: bash
       run: |
-        git config --global url."https://x-access-token:${{ inputs.github_token }}@github.com/Mazen423".insteadOf "https://github.com/Mazen423"
         git config --global user.email "webshop-foundation@mediamarksaturn.com"
         git config --global user.name "Webshop Deployment Github Action"
         git add -A
-        git commit -m "report"
-        git push
+        git commit -m "Deploying changes"
+        git push https://x-access-token:${{ inputs.github_token }}@github.com/mazen423/test-actions.git
       
 
