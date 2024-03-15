@@ -74,14 +74,6 @@ runs:
       run: |
          for var in ${{ steps.prepare-deployment.outputs.APP_FOLDER }}; do 
          cat ./.github/resources/release-template-v2.yaml | envsubst > webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}-release.yaml
-         done 
-    - name: commit
-      shell: bash
-      run: |
-        git config --global user.email "webshop-foundation@mediamarksaturn.com"
-        git config --global user.name "Webshop Deployment Github Action"
-        git add -A
-        git commit -m "Deploying changes"
-        git push
+         done
       
 

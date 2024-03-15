@@ -32,3 +32,11 @@ jobs:
           production-deployment: true
           deployment-timeout: 600
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit report
+        run: |
+          git config --global user.name 'mazen423'
+          git config --global user.email 'mazen423@users.noreply.github.com'
+          git add -A
+          git commit -am "Automated report"
+          git push
+
