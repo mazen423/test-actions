@@ -11,7 +11,7 @@ UPDATE_LOADBALANCING="false" # Only required for apps on feature branches that s
 UPDATE_KUSTOMIZATION="false" # Only required feature branches that shall be deployed
 #APP_FOLDER="apps/common" # App deployments go to the common folder, cron jobs should be deployed only on one cluster
 DEPLOYMENT_REGION="both"
-APP_FOLDER=("apps/europe-west4", "apps/europe-west1")
+APP_FOLDER=("apps/europe-west4" "apps/europe-west1")
 MAX_LENGTH_APP_NAME=52 # Limited by DNS specification and Helm chart schema
 
 if [[ "$DEPLOYMENT_TYPE" == "cronjob" ]]; then
