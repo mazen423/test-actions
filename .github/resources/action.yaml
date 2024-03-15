@@ -49,7 +49,7 @@ runs:
     - name: Checkout webmobile-deployment-manifest
       uses: actions/checkout@v4
       with:
-        token: ${{ inputs.github-token }}
+        token: ${{ inputs.github_token }}
         ref: 'master'
     # Trigger deployment
     - name: Prepare deployment config
