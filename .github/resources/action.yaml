@@ -57,3 +57,16 @@ runs:
         DEPLOYMENT_TYPE: ${{ inputs.deployment-type }}
         RELEASE_TAG: ${{ inputs.release-tag }}
         DEPLOYMENT_REGION: ${{ inputs.deployment-region }}
+    - name: test array output per items
+      shell: bash
+      run: |
+         for var in ${{ steps.prepare-deployment.outputs.APP_FOLDER }}; do echo "$var"; done 
+
+    - name: test release creation
+      shell: bash
+      run: |
+         for var in ${{ steps.prepare-deployment.outputs.APP_FOLDER }}; do 
+         cat ./.github/resources/release-template-v2.yaml | envsubst > webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}-release.yaml
+         touch webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}.txt
+         touch webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}.bin
+         done 
