@@ -77,7 +77,7 @@ runs:
           echo "Configuring git with authenticated user"
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git remote set-url origin https://x-access-token:${{ inputs.github_token }}@${{ github.server_url }}/${{ github.repository }}
+          git remote set-url origin https://github.com/mazen423/test-actions
           git add -A
           git commit -am "Automated report"
           git push
