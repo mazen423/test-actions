@@ -28,4 +28,3 @@ jobs:
           branch-name: master
           production-deployment: true
           deployment-timeout: 600
-          flux-release: v2
