@@ -46,7 +46,11 @@ outputs:
 runs:
   using: "composite"
   steps:
-
+    - name: Checkout webmobile-deployment-manifest
+      uses: actions/checkout@v4
+      with:
+        token: ${{ inputs.github-token }}
+        ref: 'master'
     # Trigger deployment
     - name: Prepare deployment config
       id: prepare-deployment
@@ -78,6 +82,6 @@ runs:
         git config --global user.name "Webshop Deployment Github Action"
         git add -A
         git commit -m "Deploying changes"
-        git push https://x-access-token:${{ inputs.github_token }}@github.com/mazen423/test-actions.git
+        git push
       
 
