@@ -10,6 +10,22 @@ on:
           - hotfix
           - release
           - rollback
+      deployment-region:
+        description: 'Region'
+        required: true
+        type: choice
+        options:
+          - europe-west1
+          - europe-west4
+          - both
+      app:
+        description: 'app'
+        required: true
+        default: "test"
+      branch:
+        description: 'app'
+        required: true
+        default: "test"
    
   push:
     branches:
@@ -27,8 +43,9 @@ jobs:
       - name: Run local action
         uses: ./.github/resources/
         with:
-          app-name: bos
-          branch-name: master
+          app-name: ${{ github.event.inputs.app }}
+          branch-name: ${{ github.event.inputs.branch }}
+          deployment-region: ${{ github.event.inputs.deployment-region }} 
           production-deployment: true
           deployment-timeout: 600
           github_token: ${{ secrets.GITHUB_TOKEN }}
