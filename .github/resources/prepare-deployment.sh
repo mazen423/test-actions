@@ -63,7 +63,6 @@ elif [ "$BRANCH_NAME" == "playground" ]; then # Can be removed after testing flu
   UPDATE_KUSTOMIZATION="true"
 fi
 
-END
 
 
 echo "DEPLOYMENT_NAME=${DEPLOYMENT_NAME}" >> $GITHUB_OUTPUT
