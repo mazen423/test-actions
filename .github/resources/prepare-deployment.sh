@@ -24,6 +24,8 @@ elif [ "$BRANCH_NAME" == "master" ] && [ "$DEPLOYMENT_REGION" == "europe-west4" 
 elif [ "$BRANCH_NAME" == "master" ] && [ "$DEPLOYMENT_REGION" == "europe-west1" ]; then
   APP_FOLDER=("apps/europe-west1")
   echo "Condition met, APP_FOLDER set to: ${APP_FOLDER[@]}"
+else
+  echo "nothing MEtttttttttttttt"
 fi
 
 
