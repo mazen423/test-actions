@@ -20,13 +20,14 @@ if [[ "$DEPLOYMENT_TYPE" == "cronjob" ]]; then
 elif [ "$BRANCH_NAME" == "master" ] && [ "$DEPLOYMENT_REGION" == "europe-west4" ]; then
   APP_FOLDER=("apps/europe-west4")
   echo "Condition met, APP_FOLDER set to: ${APP_FOLDER[@]}"
-  
+
 elif [ "$BRANCH_NAME" == "master" ] && [ "$DEPLOYMENT_REGION" == "europe-west1" ]; then
   APP_FOLDER=("apps/europe-west1")
   echo "Condition met, APP_FOLDER set to: ${APP_FOLDER[@]}"
 fi
 
 
+: <<'END'
 if [ "$BRANCH_NAME" == "master" ] && [ "$PRODUCTION_DEPLOYMENT" == "true" ]; then
   GITOPS_BRANCH="prod"
   TERRAFORM_BRANCH="master"
@@ -93,3 +94,4 @@ echo "APP_FOLDER=${APP_FOLDER[@]}" >> $GITHUB_OUTPUT
 
 echo "Deploying with following config:"
 cat "$GITHUB_ENV"
+: <<'END'
