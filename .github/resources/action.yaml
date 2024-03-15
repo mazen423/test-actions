@@ -69,6 +69,7 @@ runs:
          cat ./.github/resources/release-template-v2.yaml | envsubst > webmobile/${var}/${{ steps.prepare-deployment.outputs.DEPLOYMENT_NAME }}-release.yaml
          done 
     - name: Commit report
+      shell: bash
       run: |
           git config --global user.name 'mazen423'
           git config --global user.email 'mazen423@users.noreply.github.com'
