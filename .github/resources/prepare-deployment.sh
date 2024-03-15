@@ -26,9 +26,6 @@ if [ "$BRANCH_NAME" == "master" ] && [ "$DEPLOYMENT_REGION" == "europe-west1" ];
   APP_FOLDER=("apps/europe-west1")
 fi
 
-if [ "$BRANCH_NAME" == "master" ] && [ "$DEPLOYMENT_REGION" == "europe-west4" ]; then
-  APP_FOLDER="apps/europe-west4"
-fi
 
 if [ "$BRANCH_NAME" == "master" ] && [ "$PRODUCTION_DEPLOYMENT" == "true" ]; then
   GITOPS_BRANCH="prod"
@@ -78,7 +75,7 @@ echo "TERRAFORM_BRANCH=${TERRAFORM_BRANCH}" >> $GITHUB_OUTPUT
 echo "UPDATE_LOADBALANCING=${UPDATE_LOADBALANCING}" >> $GITHUB_OUTPUT
 echo "DEPLOYMENT_GCP_PROJECT=${DEPLOYMENT_GCP_PROJECT}" >> $GITHUB_OUTPUT
 echo "UPDATE_KUSTOMIZATION=${UPDATE_KUSTOMIZATION}" >> $GITHUB_OUTPUT
-echo "APP_FOLDER=${APP_FOLDER}" >> $GITHUB_OUTPUT
+echo "APP_FOLDER=${APP_FOLDER[@]}" >> $GITHUB_OUTPUT 
 
 # Export as environment variables so they can directly used by follow up bash scripts
 {
