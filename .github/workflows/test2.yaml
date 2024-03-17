@@ -7,9 +7,8 @@ on:
         required: true
         type: choice
         options:
-          - hotfix
-          - release
-          - rollback
+          - app
+          - cronjob
       deployment-region:
         description: 'Region'
         required: true
