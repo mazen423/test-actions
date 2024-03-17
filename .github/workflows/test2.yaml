@@ -46,6 +46,7 @@ jobs:
           branch-name: ${{ github.event.inputs.branch }}
           deployment-region: ${{ github.event.inputs.deployment-region }} 
           production-deployment: true
+          deployment-type:  ${{ github.event.inputs.type }} 
           deployment-timeout: 600
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit report
