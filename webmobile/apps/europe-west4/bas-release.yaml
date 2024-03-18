@@ -1,0 +1,17 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: bas
+  namespace: default
+spec:
+  interval: 10m
+  timeout: 20m
+  chart:
+    spec:
+      chart: charts/bas
+      version: '>=1.0.0'
+      sourceRef: # Reuse the already cloned git repository used by flux bootstrap
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 1m
